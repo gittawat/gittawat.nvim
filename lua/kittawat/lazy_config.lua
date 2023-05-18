@@ -14,13 +14,44 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
 	'rebelot/kanagawa.nvim',
 	{
-	"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"
+		"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"
 	},
 	{
-	'nvim-telescope/telescope.nvim', tag = '0.1.1',dependencies = { {'nvim-lua/plenary.nvim'} }
+		'nvim-telescope/telescope.nvim', version = '0.1.1',dependencies = { {'nvim-lua/plenary.nvim'} }
 	},
 	"mbbill/undotree",
 	"tpope/vim-fugitive",
+	{
+		'VonHeikemen/lsp-zero.nvim',
+		branch = 'v2.x',
+		dependencies = {
+			-- LSP Support
+			{'neovim/nvim-lspconfig'},             -- Required
+			{
+				"williamboman/mason.nvim",
+				build = ":MasonUpdate" -- :MasonUpdate updates registry contents
+			},
+			{'williamboman/mason-lspconfig.nvim'}, -- Optional
+
+			-- Autocompletion
+			{'hrsh7th/nvim-cmp'},     -- Required
+			{'hrsh7th/cmp-nvim-lsp'}, -- Required
+			{'L3MON4D3/LuaSnip'},     -- Required
+		},
+
+	},
+	{
+		"folke/which-key.nvim",
+		config = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+			require("which-key").setup({
+				-- your configuration comes here
+				-- or leave it empty to use the default settings
+				-- refer to the configuration section below
+			})
+		end,
+	},
 }
 local opts = {}
 

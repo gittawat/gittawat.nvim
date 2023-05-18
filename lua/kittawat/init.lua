@@ -1,3 +1,5 @@
 require("kittawat.remap")
 require("kittawat.lazy_config")
-vim.cmd("colorscheme kanagawa-dragon")
+require("kittawat.set")
+vim.cmd("colorscheme kanagawa-wave")
+
