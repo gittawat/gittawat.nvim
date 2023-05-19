@@ -2,10 +2,6 @@ local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
 
-lsp.ensure_installed({
-	'zls',
-	'clangd',
-})
 
 -- Fix Undefined global 'vim'
 lsp.nvim_workspace()
