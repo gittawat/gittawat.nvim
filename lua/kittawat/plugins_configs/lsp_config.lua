@@ -1,11 +1,22 @@
+require('lspconfig').zls.setup{}
+require('lspconfig').clangd.setup {}
+require('lspconfig').lua_ls.setup({
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = {'vim'}
+            },
+            telemetry = {
+                enable = false,
+            },
+        }
+    }
+})
+
 local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
-
-
--- Fix Undefined global 'vim'
 lsp.nvim_workspace()
-
 
 local cmp = require('cmp')
 cmp.setup({

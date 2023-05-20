@@ -13,6 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
     'rebelot/kanagawa.nvim',
+    "EdenEast/nightfox.nvim",
     {
         "nvim-treesitter/nvim-treesitter", build = ":TSUpdate"
     },
@@ -61,7 +62,8 @@ local plugins = {
         config = function()
             require("nvim-tree").setup {}
         end,
-    }
+    },
+    { 'projekt0n/github-nvim-theme' }
 }
 local opts = {}
 
