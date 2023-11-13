@@ -1,3 +1,4 @@
+require('lspconfig').openscad_lsp.setup{}
 require('lspconfig').zls.setup{}
 require('lspconfig').clangd.setup {}
 require('lspconfig').lua_ls.setup({

@@ -18,7 +18,7 @@ local plugins = {
         "nvim-treesitter/nvim-treesitter", build = ":TSUpdate"
     },
     {
-        'nvim-telescope/telescope.nvim', version = '0.1.1',dependencies = { {'nvim-lua/plenary.nvim'} }
+        'nvim-telescope/telescope.nvim', version = '0.1.4',dependencies = { {'nvim-lua/plenary.nvim'} }
     },
     "mbbill/undotree",
     "tpope/vim-fugitive",
