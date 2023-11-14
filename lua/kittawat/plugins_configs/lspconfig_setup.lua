@@ -18,9 +18,14 @@ lsp_z.set_sign_icons({
 	info = 'I',
 })
 
+lsp_z.nvim_lua_ls()
+
 lsp_z.on_attach(function(client, bufnr)
   local opts = {buffer = bufnr, remap = false}
-
+  lsp_z.default_keymaps({
+    buffer = bufnr,
+    preserve_mappings = false
+  })
   vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
   vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
   vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
@@ -36,8 +41,12 @@ end)
 require('mason').setup({})
 require('mason-lspconfig').setup({
   handlers = {
-    lsp_z.default_setup,
-  },
+	lsp_z.default_setup,
+    lua_ls = function()
+      local lua_opts = lsp_z.nvim_lua_ls()
+      require('lspconfig').lua_ls.setup(lua_opts)
+    end,
+	}
 })
 
 lsp_z.setup()
@@ -79,19 +88,9 @@ require('lspconfig').pylsp.setup{}
 require('lspconfig').openscad_lsp.setup{}
 require('lspconfig').zls.setup{}
 require('lspconfig').clangd.setup {}
-require('lspconfig').lua_ls.setup({
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = {'vim'}
-            },
-            telemetry = {
-                enable = false,
-            },
-        }
-    }
-})
 
+--local lua_opts = lsp_z.nvim_lua_ls()
+--require('lspconfig').lua_ls.setup(lua_opts)
 
 vim.diagnostic.config({
     virtual_text = true
