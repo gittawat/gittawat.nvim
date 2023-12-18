@@ -1,5 +1,7 @@
 --vim.opt.guicursor = "a:ver25"1
 
+vim.opt.clipboard="unnamed,unnamedplus"
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
