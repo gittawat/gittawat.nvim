@@ -5,13 +5,18 @@ vim.opt.clipboard="unnamed,unnamedplus"
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
-vim.cmd("set noexpandtab")
+
+
 vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
+vim.opt.softtabstop = 0
 vim.opt.shiftwidth = 4
-
-
+vim.api.nvim_command("set noet")
+vim.opt.smarttab = true
+vim.opt.autoindent = true
 vim.opt.smartindent = true
+
+vim.api.nvim_command("autocmd FileType python setlocal softtabstop=0 noexpandtab")
+
 
 vim.opt.wrap = true
 
