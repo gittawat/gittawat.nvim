@@ -1,5 +1,10 @@
 return {
-    "rebelot/kanagawa.nvim",
-    "EdenEast/nightfox.nvim",
-	'projekt0n/github-nvim-theme',
+	"rebelot/kanagawa.nvim",
+	"projekt0n/github-nvim-theme",
+	{
+		"EdenEast/nightfox.nvim",
+		config = function()
+			vim.cmd("colorscheme nightfox")
+		end
+	}
 }
