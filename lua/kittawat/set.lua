@@ -1,4 +1,3 @@
---vim.opt.guicursor = "a:ver25"1
 
 vim.opt.clipboard="unnamed,unnamedplus"
 
