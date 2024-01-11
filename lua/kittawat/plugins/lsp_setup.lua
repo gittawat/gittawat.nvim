@@ -1,6 +1,7 @@
 local lsp_plugins_spec = {
 	{
 		'neovim/nvim-lspconfig',
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			{ "williamboman/mason.nvim",          build = ":MasonUpdate" },
 			{ 'williamboman/mason-lspconfig.nvim' },
@@ -15,9 +16,6 @@ local lsp_plugins_spec = {
 			-- note: diagnostics are not exclusive to lsp servers
 			-- so these can be global keybindings
 			vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
-			vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
-			vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
-
 
 			-- setup keybindings for lsp after attached to buffer
 			vim.api.nvim_create_autocmd('LspAttach',
