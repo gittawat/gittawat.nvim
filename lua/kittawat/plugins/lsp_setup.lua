@@ -163,6 +163,7 @@ local lsp_plugins_spec = {
 			vim.diagnostic.config({
 				virtual_text = true
 			})
+			require('lspconfig').cmake.setup {}
 		end
 	}
 

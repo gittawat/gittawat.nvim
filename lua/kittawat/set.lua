@@ -12,7 +12,7 @@ vim.opt.smarttab = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 
-vim.api.nvim_command("autocmd FileType python setlocal softtabstop=0 noexpandtab")
+--vim.api.nvim_command("autocmd FileType python setlocal softtabstop=0 noexpandtab")
 
 
 vim.opt.wrap = true
