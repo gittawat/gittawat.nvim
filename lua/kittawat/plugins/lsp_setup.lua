@@ -3,8 +3,8 @@ local lsp_plugins_spec = {
 		'neovim/nvim-lspconfig',
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
-			{ "williamboman/mason.nvim",          build = ":MasonUpdate" },
-			{ 'williamboman/mason-lspconfig.nvim' },
+			{ "mason-org/mason.nvim",          build = ":MasonUpdate" },
+			{ 'mason-org/mason-lspconfig.nvim' },
 			{ 'hrsh7th/nvim-cmp' },
 			{ 'hrsh7th/cmp-buffer' },
 			{ 'hrsh7th/cmp-path' },
@@ -54,15 +54,15 @@ local lsp_plugins_spec = {
 			local default_setup = function(server)
 				require('lspconfig')[server].setup({
 					capabilities = lsp_capabilities,
-				})
+				}) 
 			end
 
 			require('mason').setup({})
 			require('mason-lspconfig').setup({
-				ensure_installed = {},
-				handlers = {
-					default_setup,
-				},
+--				ensure_installed = {},
+--				handlers = {
+--					default_setup,
+--				}
 			})
 
 
@@ -126,22 +126,23 @@ local lsp_plugins_spec = {
 			})
 
 
-			require('lspconfig').bashls.setup {}
-			require('lspconfig').pylsp.setup {
-				settings = {
-					pylsp = {
-						plugins = {
-							ruff = {
-								enabled = true, -- Enable the plugin
-							}
-						}
-					}
-				}
-			}
-			require('lspconfig').openscad_lsp.setup {}
-			require('lspconfig').zls.setup {}
-			require('lspconfig').clangd.setup {}
-			require('lspconfig').lua_ls.setup({
+			-- manaul LSP setup
+			--require('lspconfig').bashls.setup {}
+			--require('lspconfig').pylsp.setup {
+			--	settings = {
+			--		pylsp = {
+			--			plugins = {
+			--				ruff = {
+			--					enabled = true, -- Enable the plugin
+			--				}
+			--			}
+			--		}
+			--	}
+			--}
+			--require('lspconfig').openscad_lsp.setup {}
+			--require('lspconfig').zls.setup {}
+			--require('lspconfig').clangd.setup {}
+			vim.lsp.config('lua_ls',{
 				capabilities = lsp_capabilities,
 				settings = {
 					Lua = {
@@ -149,7 +150,7 @@ local lsp_plugins_spec = {
 							version = 'LuaJIT'
 						},
 						diagnostics = {
-							globals = { 'vim' },
+							globals = { 'vim','require' },
 						},
 						workspace = {
 							library = {
@@ -159,11 +160,11 @@ local lsp_plugins_spec = {
 					}
 				}
 			})
-
+			vim.lsp.enable('lua_ls')
+			--require('lspconfig').cmake.setup {}
 			vim.diagnostic.config({
 				virtual_text = true
 			})
-			require('lspconfig').cmake.setup {}
 		end
 	}
 
