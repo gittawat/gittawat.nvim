@@ -1,4 +1,4 @@
---return {
+return {
 --	{
 --		'echasnovski/mini.base16',
 --		version = false,
@@ -21,4 +21,4 @@
 --	{
 --		"EdenEast/nightfox.nvim",
 --	}
---}
+}
