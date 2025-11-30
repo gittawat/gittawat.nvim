@@ -11,6 +11,16 @@ return {
 				cursorline = true,
 				debounce_delay = 15,
 				side = "left",
+			},
+			filters = {
+				enable = true,
+				git_ignored = true,
+				dotfiles = false,
+				git_clean = false,
+				no_buffer = false,
+				no_bookmark = false,
+				custom = {},
+				exclude = {},
 			}
 		}
 		vim.keymap.set("n", "<leader>ft", "<cmd>lua vim.cmd.NvimTreeToggle()<cr>")

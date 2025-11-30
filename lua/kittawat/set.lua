@@ -1,13 +1,20 @@
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- optionally enable 24-bit colour
+vim.opt.termguicolors = true
+
 vim.opt.clipboard="unnamed,unnamedplus"
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
 vim.opt.tabstop = 4
-vim.opt.softtabstop = 0
+vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
-vim.api.nvim_command("set noet")
+
+vim.o.expandtab = false
 vim.opt.smarttab = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
