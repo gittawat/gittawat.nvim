@@ -37,3 +37,11 @@ vim.opt.signcolumn = "yes"
 
 vim.opt.updatetime = 50
 --vim.opt.colorcolumn = "80"
+
+-- Enable native Neovim 0.12 Treesitter highlighting
+vim.api.nvim_create_autocmd('FileType', {
+    group = vim.api.nvim_create_augroup('NativeTreesitter', { clear = true }),
+    callback = function()
+        pcall(vim.treesitter.start)
+    end,
+})

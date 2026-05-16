@@ -1,5 +1,5 @@
-return {
-	"tpope/vim-sleuth",
-	config = function ()
-	end
-}
+--return {
+--	"tpope/vim-sleuth",
+--	config = function ()
+--	end
+--}

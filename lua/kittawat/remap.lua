@@ -1,8 +1,7 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>/", vim.cmd.nohlsearch)
 vim.keymap.set("n", "<leader>c/", ":let @/=''<Enter>")
-vim.cmd("map <leader>e <CR>")
-
+vim.keymap.set("n", "<leader>e", "<CR>", { noremap = true })
 
 -- Set h for up, j for down, k for left, and l for right
 vim.keymap.set({ "n", "v" }, 'k', 'j', { noremap = true, silent = true })
