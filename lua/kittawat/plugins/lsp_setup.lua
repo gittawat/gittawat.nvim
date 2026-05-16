@@ -2,7 +2,7 @@ local lsp_plugins_spec = {
 	'neovim/nvim-lspconfig',
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
-		{ "mason-org/mason.nvim", build = ":MasonUpdate" },
+		{ "mason-org/mason.nvim",          build = ":MasonUpdate" },
 		{ 'mason-org/mason-lspconfig.nvim' },
 		{ 'hrsh7th/nvim-cmp' },
 		{ 'hrsh7th/cmp-buffer' },
@@ -13,37 +13,34 @@ local lsp_plugins_spec = {
 	config = function()
 		-- note: diagnostics are not exclusive to lsp servers
 		-- so these can be global keybindings
-		-- vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
+		vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
 		--
 		-- setup keybindings for lsp after attached to buffer
 		vim.api.nvim_create_autocmd('LspAttach',
 			{
 				desc = 'LSP actions',
 				callback = function(event)
-					local opts = { buffer = event.buf }
+					local buf = event.buf
 
 					-- these will be buffer-local keybindings
 					-- because they only work if you have an active language server
 
 					--vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-					vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-					vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-					vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-					vim.keymap.set('n', 'go', vim.lsp.buf.type_definition, opts)
+					vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = buf, desc = 'vim.lsp.definition' })
+					vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = buf, desc = 'vim.lsp.declaration' })
+					vim.keymap.set('n', 'gi', vim.lsp.buf.implementation,
+						{ buffer = buf, desc = 'vim.lsp.implementation' })
+					vim.keymap.set('n', 'go', vim.lsp.buf.type_definition,
+						{ buffer = buf, desc = 'vim.lsp.type_definition' })
 					--vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
 					--vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-					--vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-					
-					vim.keymap.set({ 'n', 'x' }, '<F3>', function() 
-						vim.lsp.buf.format({async = true}) 
-					end, opts)
+					--vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)	
+					vim.keymap.set({ 'n', 'x' }, '<F3>', function()
+						vim.lsp.buf.format({ async = true })
+					end, { buffer = buf, desc = 'vim.lsp.buf.format' })
 					--
-					vim.keymap.set('n', '<F4>', vim.lsp.buf.code_action, opts)
-					if vim.lsp.buf.range_code_action then
-						vim.keymap.set('x', '<F4>', vim.lsp.buf.range_code_action, opts)
-					else
-						vim.keymap.set('x', '<F4>', vim.lsp.buf.code_action, opts)
-					end
+					vim.keymap.set({ 'n', 'x' }, '<F4>', vim.lsp.buf.code_action,
+						{ buffer = buf, desc = 'vim.lsp.buf.code_action' })
 					--vim.keymap.set("i", "<C-h>", '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
 				end
 			}
@@ -51,7 +48,6 @@ local lsp_plugins_spec = {
 
 		-- mason setup
 		local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-		
 		require('mason').setup({})
 		require('mason-lspconfig').setup({})
 
@@ -101,7 +97,7 @@ local lsp_plugins_spec = {
 			sources = {
 				{ name = 'path' },
 				{ name = 'nvim_lsp' },
-				{ name = 'buffer', keyword_length = 3},
+				{ name = 'buffer',  keyword_length = 3 },
 			},
 			formatting = cmp_format(),
 			mapping = cmp.mapping.preset.insert({
@@ -117,11 +113,11 @@ local lsp_plugins_spec = {
 		cmp.setup.cmdline(':', {
 			mapping = cmp.mapping.preset.cmdline(),
 			sources = cmp.config.sources({
-				{ name = 'path' }
-			},	
-			{
-				{ name = 'cmdline' }
-			})
+					{ name = 'path' }
+				},
+				{
+					{ name = 'cmdline' }
+				})
 		})
 
 
@@ -173,7 +169,7 @@ local lsp_plugins_spec = {
 			}
 		})
 		vim.lsp.enable('lua_ls')
-		
+		--
 		vim.diagnostic.config({
 			virtual_text = true
 		})
