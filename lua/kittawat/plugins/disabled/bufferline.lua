@@ -22,4 +22,4 @@ local bufferline_spec = {
 		}
 	end
 }
-return bufferline_spec
+--return bufferline_spec
