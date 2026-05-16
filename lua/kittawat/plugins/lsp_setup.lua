@@ -170,9 +170,6 @@ local lsp_plugins_spec = {
 		})
 		vim.lsp.enable('lua_ls')
 		--
-		vim.diagnostic.config({
-			virtual_text = true
-		})
 
 		vim.lsp.config('dartls', {
 			capabilities = lsp_capabilities,
@@ -185,6 +182,15 @@ local lsp_plugins_spec = {
 		}
 		)
 		vim.lsp.enable('dartls')
+		--	
+		vim.lsp.config('clangd', {
+			capabilities = lsp_capabilities
+		}
+		)
+		vim.lsp.enable('clangd')
+		vim.diagnostic.config({
+			virtual_text = true
+		})
 	end
 }
 return lsp_plugins_spec
