@@ -2,7 +2,7 @@ local lsp_plugins_spec = {
 	'neovim/nvim-lspconfig',
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
-		{ "mason-org/mason.nvim",          build = ":MasonUpdate" },
+		{ "mason-org/mason.nvim",},
 		{ 'mason-org/mason-lspconfig.nvim' },
 		{ 'hrsh7th/nvim-cmp' },
 		{ 'hrsh7th/cmp-buffer' },
