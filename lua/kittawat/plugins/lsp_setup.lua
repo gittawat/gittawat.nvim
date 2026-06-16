@@ -2,7 +2,7 @@ local lsp_plugins_spec = {
 	'neovim/nvim-lspconfig',
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
-		{ "mason-org/mason.nvim",},
+		{ "mason-org/mason.nvim", },
 		{ 'mason-org/mason-lspconfig.nvim' },
 		{ 'hrsh7th/nvim-cmp' },
 		{ 'hrsh7th/cmp-buffer' },
@@ -185,6 +185,10 @@ local lsp_plugins_spec = {
 		vim.lsp.enable('dartls')
 		--	
 		vim.lsp.config('clangd', {
+			cmd = {
+				"clangd",
+				"--query-driver=/usr/bin/arm-none-eabi-*,/usr/bin/gcc,/usr/bin/g++,/usr/bin/clang*"
+			},
 			capabilities = lsp_capabilities
 		}
 		)
