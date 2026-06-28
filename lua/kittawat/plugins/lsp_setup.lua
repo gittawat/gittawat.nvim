@@ -172,22 +172,25 @@ local lsp_plugins_spec = {
 		vim.lsp.enable('lua_ls')
 		--
 
-		vim.lsp.config('dartls', {
-			capabilities = lsp_capabilities,
-			settings = {
-				dart = {
-					completeFunctionCalls = true,
-					showTodos = true,
-				},
-			}
-		}
-		)
-		vim.lsp.enable('dartls')
+		--vim.lsp.config('dartls', {
+		--	capabilities = lsp_capabilities,
+		--	settings = {
+		--		dart = {
+		--			completeFunctionCalls = true,
+		--			showTodos = true,
+		--		},
+		--	}
+		--}
+		--)
+		--vim.lsp.enable('dartls')
 		--	
 		vim.lsp.config('clangd', {
 			cmd = {
 				"clangd",
-				"--query-driver=/usr/bin/arm-none-eabi-*,/usr/bin/gcc,/usr/bin/g++,/usr/bin/clang*"
+				--"--query-driver=/usr/bin/arm-none-eabi-g*,/usr/bin/gcc,/usr/bin/g++,/usr/bin/clang*"
+				"--query-driver=**",
+				"--background-index",
+				"--clang-tidy"
 			},
 			capabilities = lsp_capabilities
 		}
@@ -196,6 +199,19 @@ local lsp_plugins_spec = {
 		vim.diagnostic.config({
 			virtual_text = true
 		})
+
+
+		vim.lsp.config('rust_analyzer', {
+			capabilities = lsp_capabilities,
+			--	settings = {
+			--		['rust-analyzer'] = {
+			--			diagnostics = {
+			--				enable = true,
+			--			}
+			--		}
+			--	}
+		})
+		vim.lsp.enable('rust_analyzer')
 	end
 }
 return lsp_plugins_spec
