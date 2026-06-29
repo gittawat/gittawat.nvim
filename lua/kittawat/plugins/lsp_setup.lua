@@ -15,7 +15,8 @@ local lsp_plugins_spec = {
 		-- note: diagnostics are not exclusive to lsp servers
 		-- so these can be global keybindings
 		vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
-		--
+
+
 		-- setup keybindings for lsp after attached to buffer
 		vim.api.nvim_create_autocmd('LspAttach',
 			{
@@ -121,11 +122,42 @@ local lsp_plugins_spec = {
 				})
 		})
 
+		vim.diagnostic.config({
+			virtual_text = true
+		})
+
+		-- Modern Dynamic LSP Server Initialization
+		local servers = {
+			"bashls",
+			"lua_ls",
+			"clangd",
+			--"rust_analyzer"
+		}
+
+		for _, server in ipairs(servers) do
+			local ok, config_mod = pcall(require, "kittawat.plugins.lsp_config." .. server)
+			if ok then
+				local config = config_mod
+				-- If the config file returns a function, evaluate it with global capabilities
+				if type(config_mod) == "function" then
+					config = config_mod(lsp_capabilities)
+				else
+					config = {
+						capabilities = lsp_capabilities,
+					}
+				end
+				vim.lsp.config(server, config)
+			else
+				-- DO NOT fail silently; notify if there is a path or syntax error in the server file
+				vim.notify("LSP Config error for [" .. server .. "]: " .. tostring(config_mod), vim.log.levels.WARN)
+			end
+
+			-- Always ensure the server gets enabled
+			vim.lsp.enable(server)
+		end
 
 
 		-- manaul LSP setup
-		--vim.lsp.config('bashls')
-		vim.lsp.enable('bashls')
 		--vim.lsp.config('pyright', {
 		--	capabilities = lsp_capabilities,
 		--	settings = {
@@ -149,69 +181,6 @@ local lsp_plugins_spec = {
 		--require('lspconfig').openscad_lsp.setup {}
 		--require('lspconfig').zls.setup {}
 		--require('lspconfig').clangd.setup {}
-
-		-- lua
-		vim.lsp.config('lua_ls', {
-			capabilities = lsp_capabilities,
-			settings = {
-				Lua = {
-					runtime = {
-						version = 'LuaJIT'
-					},
-					diagnostics = {
-						globals = { 'vim', 'require' },
-					},
-					workspace = {
-						library = {
-							vim.env.VIMRUNTIME,
-						}
-					}
-				}
-			}
-		})
-		vim.lsp.enable('lua_ls')
-		--
-
-		--vim.lsp.config('dartls', {
-		--	capabilities = lsp_capabilities,
-		--	settings = {
-		--		dart = {
-		--			completeFunctionCalls = true,
-		--			showTodos = true,
-		--		},
-		--	}
-		--}
-		--)
-		--vim.lsp.enable('dartls')
-		--	
-		vim.lsp.config('clangd', {
-			cmd = {
-				"clangd",
-				--"--query-driver=/usr/bin/arm-none-eabi-g*,/usr/bin/gcc,/usr/bin/g++,/usr/bin/clang*"
-				"--query-driver=**",
-				"--background-index",
-				"--clang-tidy"
-			},
-			capabilities = lsp_capabilities
-		}
-		)
-		vim.lsp.enable('clangd')
-		vim.diagnostic.config({
-			virtual_text = true
-		})
-
-
-		vim.lsp.config('rust_analyzer', {
-			capabilities = lsp_capabilities,
-			--	settings = {
-			--		['rust-analyzer'] = {
-			--			diagnostics = {
-			--				enable = true,
-			--			}
-			--		}
-			--	}
-		})
-		vim.lsp.enable('rust_analyzer')
 	end
 }
 return lsp_plugins_spec
